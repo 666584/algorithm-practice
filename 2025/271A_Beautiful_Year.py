@@ -2,8 +2,6 @@
 # Beautiful Year
 y = int(input())
 next_y = y + 1
-for n in str(next_y):
-    print(n)
 output = 0
 while output == 0:
     for n in str(next_y):
