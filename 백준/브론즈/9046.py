@@ -11,17 +11,14 @@ from collections import Counter
 def most_fre_char():
     num_message = int(input())
     
-    for x in range(0, num_message):
+    for _ in range(0, num_message):
         message = input()
-        c = Counter(message)
-        fre_dict = dict(c.most_common())
-        if ' ' in fre_dict:
-            fre_dict.pop(' ')
-        if len(fre_dict) != 1:
-            if list(fre_dict.values())[0] == list(fre_dict.values())[1]:
-                print("?")
-            else:
-                print(list(fre_dict.keys())[0])
+        # 공백 제거
+        counter = Counter(message.replace(" ", ""))
+        fre_char = counter.most_common()
+
+        if len(fre_char) > 1 and fre_char[0][1] == fre_char[1][1]:
+            print("?")
         else:
-            print(list(fre_dict.keys())[0])
+            print(fre_char[0][0])
 most_fre_char()
