@@ -11,46 +11,36 @@ vowel_list = ['a', 'e', 'i', 'o', 'u']
 def is_vowel(ch):
     return ch in vowel_list
 
-def vaildate_password(password):
-    vaild = 0      
-    for vowel in vowel_list:
-        if vowel in password:                
-            vaild = 1
-            break
-    if vaild == 0:
-        return 0
-    else:
-        i = 1
-        cur_char = password[0]
-        count = 1
+def vaildate_password(password: str) -> bool:
+    if not any(vowel in password for vowel in vowel_list):
+        return False
+
+    cur_char = password[0]
+    count = 1
+    
+    for i in range(1, len(password)):
+        next_char = password[i]
+
+        if cur_char == next_char and cur_char not in ('e', 'o'):
+            return False
         
-        while i < len(password):  
-            if (cur_char == password[i] and
-                cur_char != 'o' and cur_char != 'e'):
-                return 0
-            elif count == 3:
-                return 0
-            elif is_vowel(cur_char) == is_vowel(password[i]):
-                count += 1
-                cur_char = password[i]
-            else:
-                cur_char = password[i] 
-                count = 1
-            i += 1   
-    if count == 3:
-        return 0
-    else:
-        return vaild
+        if is_vowel(cur_char) == is_vowel(next_char):
+            count += 1
+            if count == 3:
+                return False
+        else:
+            count = 1
+        cur_char = next_char
+    
+    return True
 
 def result():
-    password = ""
-    while password != "end":
+    while True:
         password = input()
         if password == "end":
-            return None 
-        result = vaildate_password(password)
-        if result == 1:
-            print("<"+password+">"+" is acceptable.")
-        elif result == 0:
-            print("<"+password+">"+" is not acceptable.")
+            break 
+        if vaildate_password(password):
+            print(f"<{password}> is acceptable.")
+        else:
+            print(f"<{password}> is not acceptable.")
 result()
