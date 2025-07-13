@@ -19,4 +19,18 @@ def read_vertically():
             if i < count_list[j]:   
                 sentence = sentence + sentence_list[j][i]
     print(sentence)
+"""
+def read_vertically():
+    rows = [input() for _ in range(5)]
+    result = ""
+
+    max_length = max(len(row) for row in rows)
+
+    for i in range(max_length):
+        for row in rows:
+            if i < len(row):
+                result += row[i]
+
+    print(result)
+"""
 read_vertically()
