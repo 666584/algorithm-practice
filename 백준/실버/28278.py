@@ -6,7 +6,7 @@ input 시간을 줄이기 위해 sys를 쓴다.
 시간: 	444 ms
 """
 import sys
-num_line = int(sys.stdin.readline().strip())
+num_line = int(sys.stdin.readline())
 stack_list = []
   
 for _ in range(num_line):
@@ -15,21 +15,10 @@ for _ in range(num_line):
         parts = command.split()
         stack_list.append(int(parts[1]))
     elif command == '2':
-        if stack_list:
-            print(stack_list[-1])
-            stack_list.pop()
-        else:
-            print("-1")
+        print(stack_list.pop() if stack_list else -1)
     elif command == '3':
         print(len(stack_list))
     elif command == '4':
-        if not stack_list:
-            print("1")
-        else: 
-            print("0")
+        print(0 if stack_list else 1)
     elif command == '5':
-        if stack_list:
-            num = stack_list[-1]
-            print(num)
-        else:
-            print("-1")
+        print(stack_list[-1] if stack_list else -1)
