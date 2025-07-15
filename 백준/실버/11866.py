@@ -4,21 +4,19 @@
 시간: 	124 ms
 """
 import sys
+from collections import deque
+
 n, k = map(int, sys.stdin.readline().split())
-queue = list(range(1,n+1))
-deleted_list = []
-for _ in range(n-1):
-    if len(queue) >= k:
-        deleted_list.append(queue[k-1])
-        queue = queue[k:] + queue[:k-1]
-    else:
-        i_delete = k - 1
-        while i_delete >= len(queue):
-            i_delete -= len(queue)
-        deleted_list.append(queue[i_delete])
-        queue = queue[i_delete+1:] + queue[:i_delete]
-result = "<" 
-for num in deleted_list:
-    result = result + str(num) + ", "
-result = result + str(queue[0]) + ">"
-print(result)
+queue = deque(range(1, n+1))
+result = []
+
+while queue: 
+    # rotate(n): 시계방향 회전
+    # roatate(-n): 반시계방향 회전 
+    queue.rotate(-k + 1)
+    # 맨 왼쪽 값을 돌려주고 리스트에서 삭제한다.
+    result.append(queue.popleft())
+
+# join: 리스트를 문자열로 합친다.
+# map: 리스트를 특정 타입으로 바꾼다.
+print("<" + ", ".join(map(str, result)) + ">")
