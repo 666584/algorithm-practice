@@ -1,8 +1,8 @@
 """
 해시를 사용한 집합과 맵
 작성일: 2025-07-15
-메모리: 112872 KB
-시간: 	136 ms
+메모리: 254780 KB
+시간: 	628 ms
 """
 import sys
 from collections import Counter
