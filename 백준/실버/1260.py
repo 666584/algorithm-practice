@@ -13,25 +13,20 @@ for _ in range(m):
     graph[x].append(y)
     graph[y].append(x)
 
+for key in graph:
+    graph[key].sort()
+
 def dfs():
-    for key in graph:
-        graph[key].sort(reverse=True)
     visited = set()
     stack = [v]
     while stack:
         node = stack.pop()
         if node not in visited:
             print(node, end=" ")
-        visited.add(node)
-        for closed_node in graph[node]:
-            if closed_node not in visited:
-                stack.append(closed_node)
+            visited.add(node)
+            stack.extend(reversed(graph[node]))
 
-dfs()
-print("")
 def bfs():
-    for key in graph:
-        graph[key].sort(reverse=False)
     visited = set()
     queue = deque([v])
     visited.add(v)
@@ -42,4 +37,7 @@ def bfs():
             if closed_node not in visited:
                 visited.add(closed_node)
                 queue.append(closed_node)
+
+dfs()
+print("")
 bfs()
