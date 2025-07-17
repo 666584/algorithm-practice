@@ -1,8 +1,8 @@
 """
 dfs, bfs 만드는 방법
 작성일: 2025-07-17
-메모리:  KB
-시간:  ms
+메모리: 114332 KB
+시간:   132 ms
 """
 import sys
 from collections import defaultdict, deque
