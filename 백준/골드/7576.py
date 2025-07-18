@@ -22,26 +22,24 @@ def find_goal(box):
     return goal
 def bfs(goal_list): 
     queue = deque(goal_list)
-    visited = set()
     depth = [[-1]*m for _ in range(n)]
     max_depth = 0
     for gx, gy in goal_list:
         depth[gx][gy] = 0
-        visited.add((gx,gy))
+    
     while queue:
         node = queue.popleft()
         x, y = node
         for dx, dy in directions:
             nx = x + dx
             ny = y + dy
-            if (nx,ny) not in visited:
-                if nx >= 0 and ny >= 0:
-                    if nx < n and ny < m:
-                        if box[nx][ny] == "0" and box[x][y] == "1":
-                            box[nx][ny] = "1" 
-                            depth[nx][ny] = depth[x][y] + 1                   
-                            max_depth = max(max_depth, depth[nx][ny])
-                            queue.append((nx,ny))             
+            if nx >= 0 and ny >= 0:
+                if nx < n and ny < m:
+                    if box[nx][ny] == "0" and box[x][y] == "1":
+                        box[nx][ny] = "1" 
+                        depth[nx][ny] = depth[x][y] + 1                   
+                        max_depth = max(max_depth, depth[nx][ny])
+                        queue.append((nx,ny))             
     return max_depth
 
 goal_list = find_goal(box)
@@ -49,12 +47,4 @@ if len(goal_list) == m*n:
     print(0)
 else: 
     depth_list = bfs(goal_list)
-    fail = 0
-    for tomatos in box:
-        if "0" in tomatos:
-            fail = 1
-            break
-    if not fail:
-        print(depth_list)
-    else:
-        print(-1)
+    print(depth_list if all("0" not in row for row in box) else -1)
