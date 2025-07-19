@@ -1,3 +1,4 @@
+"""NOT FINISHED"""
 import sys
 from collections import deque
 n, k = map(int, sys.stdin.readline().strip().split())
