@@ -1,48 +1,19 @@
 """
-1로 만들기
-작성일: 2025-07-22
-메모리: 108384 KB
-시간: 80 ms
+1로 만들기/ dp
+작성일: 2025-07-23
+메모리: 118552 KB
+시간: 112 ms
 """
 import sys
 input = sys.stdin.readline
 n = int(input())
-count = 0
-"""while n != 1:
-    if n % 3 == 0:
-        n = n / 3
-        count += 1
-    elif n % 2 == 0:
-        n = n / 2
-        count += 1
-    else:
-        n -= 1
-        count += 1
-    print(n)
-print(count)"""
-
-def get_count(n):
-    print("n")
-    print(n)
-    if n == 1:
-        return count
-    if n - 1 > 1:
-        print(1)
-        return get_count(n-1)
-    if n % 3 == 0:
-        print(3)
-        return get_count(n/3)
-    if n % 2 == 0:
-        print(2)
-        return get_count(n/2)
-get_count(n)
-"""
-10-1 = 9
-9/3 = 3
-3/3 = 1 
-or 
-10/2 = 5
-5 - 1 = 4
-4/2 = 2
-2/2 = 1 
-"""
+dp = [0]*(n+1)
+# dp는 정수 i 를 1로 만드는 데 필요한 최소 연산 횟수
+dp[1] = 0
+for i in range(2, n+1):
+    dp[i] = dp[i - 1] + 1
+    if i % 2 == 0:
+        dp[i] = min(dp[i], dp[i // 2] + 1)
+    if i % 3 == 0:
+        dp[i] = min(dp[i], dp[i // 3] + 1)
+print(dp[n])
