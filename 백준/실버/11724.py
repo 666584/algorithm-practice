@@ -1,12 +1,35 @@
 """
-작성일: 2025-07-13
-메모리: 44628 KB
-시간: 2564 ms
-
-N: 사람 수
-M: 채널 수
-P: initial 채널
-각 사람 마다 좋아 하는 채널과 싫어하는 채널
-싫어하는 채널은 좋아하는 채널로 바꾼다.
-
+dfs
+작성일: 2025-08-06
+메모리: 169868 KB
+시간: 620 ms
 """
+import sys
+from collections import defaultdict
+input = sys.stdin.readline
+n, m = map(int, input().strip().split())
+graph = defaultdict(list)
+for _ in range(m):
+    a, b = map(int, input().strip().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+def dfs():
+    keys = list(graph.keys())
+    visited = []
+    count = 0
+    while keys:
+        start = keys[0]
+        visited.append(keys[0])
+        stack = [start]
+        keys.remove(start)
+        count += 1
+        while stack:
+            node = stack.pop()
+            for value in graph[node]:
+                if value not in visited:
+                    stack.append(value)
+                    visited.append(value)
+                    keys.remove(value)
+    print((n - len(visited))+count)
+dfs()
