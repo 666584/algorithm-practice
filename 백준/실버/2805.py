@@ -8,7 +8,29 @@ EKO/ 이분 탐색
 import sys
 n, m = map(int, sys.stdin.readline().strip().split())
 heights = list(map(int, sys.stdin.readline().strip().split()))
+
+heights.sort()
 print(heights)
-heights.sort(reverse=True)
-for i in range(1, n):
-    curr = heights[i]-1
+left_curr = heights[0]
+left_score = 0
+for i in range(1,n):
+    left_score += heights[i] - left_curr
+print(left_score)
+right_score = 0
+mid_score = (left_score + right_score)/2
+
+
+
+"""20 17 15 10
+20 15 10 17
+20 : 안됨. 
+17 : 안됨. 
+15 : 됨. 
+
+4 42 40 26 46
+46: 안됨
+42: 안됨
+40: 안됨
+26: 됨.
+4: 됨.
+26-40 사이임."""
