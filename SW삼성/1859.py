@@ -40,43 +40,40 @@ T = int(input())
 # 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 
 # 2 1 2 1 10 : 이 케이스의 경우에는 마지막에 파는 것이 좋다.
-# 1 4 1 5 1 : 3일때 파는 것이 좋다.
-
+# 1 6 1 5 1 : 6,5일때 파는 것이 좋다.
 """
-현재 가격보다 다음 가격이 높으면 계속 사다가,
-가격이 떨어지는 시점에서 이전 최고가에 모두 파는 방식
+가장 큰 값 전까지 사다가 가장 큰 값에서 팔고 
+그 다음으로 가장 큰 값에 파는 것을 반복한다.
 """
-def find_best_cost(days, costs):
-    result = 0
-    curr_cost = costs[0]
-    buy = 0
-    buy_num = 0
-    for i in range(1, days):
-        print(costs[i], 'costs')
-        if costs[i] >= curr_cost:
-            buy += curr_cost
-            buy_num += 1
-            print(buy, "buy")
-            if i == days - 1:
-                sell = costs[i]
-                profit = sell * buy_num - buy
-                result += profit
-        else:
-            sell = curr_cost
-            profit = sell * buy_num - buy
-            result += profit
-            buy = 0
-            buy_num = 0
-        curr_cost = costs[i]
+def find_best_cost(start, days, costs, result):
+    if start == days:
+        return result
     
-    return result 
+    i = days - 1
+    max_cost = 0
+    max_cost_i = 0
+    while i >= start:
+        if costs[i] >= max_cost:
+            max_cost = costs[i]
+            max_cost_i = i
+        i -= 1
+    buy = 0
+    buy_i = 0
+    for i in range(start, max_cost_i):
+        print(i, "i")
+        buy += costs[i]
+        buy_i += 1
+    profit = max_cost * buy_i - buy
+    result += profit
+    return find_best_cost(max_cost_i + 1, days, costs, result)
 
 results = []
 for test_case in range(1, T + 1):
     days = int(input())
     costs = list(map(int, input().strip().split()))
-    result = find_best_cost(days, costs)
-    results.append(result)
+    result = 0
+    r = find_best_cost(0, days, costs, result)
+    results.append(r)
 
 for i in range(T):
     print(f"#{i + 1} {results[i]}")
