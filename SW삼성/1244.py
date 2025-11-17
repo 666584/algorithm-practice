@@ -1,3 +1,4 @@
+# unsolved
 t = int(input())
 def find_max_num(num_list, visited):
     max_num = 0
@@ -26,7 +27,6 @@ def find_max_resut(num, N):
                 visited = []
                 visited.append(i)
                 visited.append(max_i)
-                break
     return num_list
 
 results = []
