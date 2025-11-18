@@ -5,3 +5,4 @@ for i in range(T):
     set2 = set(map(int, input().split()))
     result = len(set1& set2)
     print(f"#{i+1} {result}")
+# set1 ^ set2 -> set1 와 set2가 겹치지 않는 것.
