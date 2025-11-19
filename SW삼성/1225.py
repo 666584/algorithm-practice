@@ -1,22 +1,16 @@
 for _ in range(10):
-    i = int(input())
-    num_list = []
-    num_list = list(map(int, input().split()))
-    j = 1
+    tc = int(input())
+    nums = list(map(int, input().split()))
+
+    minus = 1
     while True:
-        after_list = num_list[1:]
-        new = num_list[0] - j
-        num_list = after_list[:]
-        if new <= 0:
-            new = 0
-            num_list.append(new)
+        value = nums.pop(0) - minus
+
+        if value <= 0:
+            nums.append(0)
             break
-        else:
-            num_list.append(new)
-            j += 1
-            if j > 5:
-                j = 1
-    print(f"#{i}", end= " ")
-    for x in range(7):
-        print(num_list[x], end=" ")
-    print(num_list[7])
+
+        nums.append(value)
+        minus = minus % 5 + 1   # 1 → 2 → 3 → 4 → 5 → 1 순환
+
+    print(f"#{tc}", *nums)
