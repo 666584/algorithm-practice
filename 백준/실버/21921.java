@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BJ_21921_ºí·Î±×_Á¶À¯¸² {
+public class BJ_21921_ÂºÃ­Â·ÃÂ±Ã—_ÃÂ¶Ã€Â¯Â¸Â² {
 	private static BufferedReader br;
 	
 	public static int[] getMaxVisitor(int[] list, int X, int N) {
@@ -60,3 +60,4 @@ public class BJ_21921_ºí·Î±×_Á¶À¯¸² {
 		}
 	}
 }
+
