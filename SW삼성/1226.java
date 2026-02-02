@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class SWEA_1226_¹Ì·Î1_Á¶À¯¸² {
+public class SWEA_1226_Â¹ÃŒÂ·Ã1_ÃÂ¶Ã€Â¯Â¸Â² {
 	static Scanner sc = new Scanner(System.in);
 	static int[] direction_x = {-1, 1, 0, 0};
 	static int[] direction_y = {0, 0, -1, 1};
