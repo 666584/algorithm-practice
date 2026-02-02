@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.LinkedList;
 
-public class SWEA_1230_¾ÏÈ£¹®3_Á¶À¯¸² {
+public class SWEA_1230_Â¾ÃÃˆÂ£Â¹Â®3_ÃÂ¶Ã€Â¯Â¸Â² {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void insert(int x, int y, LinkedList<Integer> s, LinkedList<Integer> list) {
@@ -65,3 +65,4 @@ public class SWEA_1230_¾ÏÈ£¹®3_Á¶À¯¸² {
 		}
 	}
 }
+
