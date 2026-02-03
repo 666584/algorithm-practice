@@ -7,7 +7,10 @@ import java.util.StringTokenizer;
 public class Main {
 	private static BufferedReader br;
 	final int MAX = 2;
-	
+
+	/*
+	* 이중 반복문 (O(N^2)) 복잡도
+	*/
 	public static int twoPointer(int N, int[] snackList, int M) {
 		Arrays.sort(snackList);
 		int max = -1;
