@@ -6,27 +6,22 @@ import java.util.StringTokenizer;
 
 public class Main {
 	private static BufferedReader br;
-	final int MAX = 2;
-
-	/*
-	* 이중 반복문 (O(N^2)) 복잡도
-	*/
+	
 	public static int twoPointer(int N, int[] snackList, int M) {
 		Arrays.sort(snackList);
 		int max = -1;
-		int curr = 0;
+		int left = 0;
+		int right = N - 1;
 
-		for(int i = N - 1; i > 0; i--) {			
-			int end = i - 1; 
-			while(end >= 0) {
-				curr = snackList[i] + snackList[end];
-				if(curr > max && curr <= M) {
-					max = curr;
-					
-				}
-				end -= 1;
-			}
+		while (left < right) {
+		    int sum = snackList[left] + snackList[right];
+		    if (sum > M) right--;
+		    else {
+		        max = Math.max(max, sum);
+		        left++;
+		    }
 		}
+		
 		return max;
 	}
 	
