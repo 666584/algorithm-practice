@@ -1,68 +1,94 @@
-import java.util.Scanner;
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
-public class SWEA_1230_¾ÏÈ£¹®3_Á¶À¯¸² {
-	static Scanner sc = new Scanner(System.in);
-
-	public static void insert(int x, int y, LinkedList<Integer> s, LinkedList<Integer> list) {
-		list.addAll(x, s);
-	}
+public class SWEA_1230_암호문3_조유림 {
+	private static BufferedReader br;
 	
-	public static void delete(int x, int y, LinkedList<Integer> list) {
-		for(int i = x; i < y; i++) {
-			list.remove(x);
-		}
-	}
-	
-	public static void addMore(int y, LinkedList<Integer> s, LinkedList<Integer> list) {
-		list.addAll(list.size(), s);
-	}
-	
-	public static void operate(LinkedList<Integer> list) {
-		char commandChar = sc.next().charAt(0);
+	public static void processCommand(LinkedList<Integer> list, StringTokenizer st) {
+		
+		char commandChar = st.nextToken().charAt(0);
+		
 		switch(commandChar) {
 		case 'I':
-			int x = sc.nextInt();
-			int y = sc.nextInt();
-			LinkedList<Integer> s = new LinkedList<>();
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			
+			ListIterator<Integer> insertIt = list.listIterator(x);
 			for(int i = 0; i < y; i++) {
-				s.add(sc.nextInt());
+				insertIt.add(Integer.parseInt(st.nextToken()));
 			}
-			insert(x, y, s, list);
-			return;
+			
+			break;
+		
 		case 'D':
-			x = sc.nextInt();
-			y = sc.nextInt();
-			delete(x, y, list);
-			return;
-		case 'A':
-			y = sc.nextInt();
-			s = new LinkedList<>();
+			x = Integer.parseInt(st.nextToken());
+			y = Integer.parseInt(st.nextToken());
+			
+			ListIterator<Integer> deleteIt = list.listIterator(x);
 			for(int i = 0; i < y; i++) {
-				s.add(sc.nextInt());
+				// 다음값이 있는지 확인하는 것이 좋다.
+				if (deleteIt.hasNext()) {
+					deleteIt.next();
+					deleteIt.remove();
+				}
 			}
-			addMore(y, s, list);
-			return;
+			
+			break;
+		
+		case 'A':
+			y = Integer.parseInt(st.nextToken());
+			
+			ListIterator<Integer> appendIt = list.listIterator(list.size());
+			for(int i = 0; i < y; i++) {
+				appendIt.add(Integer.parseInt(st.nextToken()));
+			}	
+			
+			break;
 		}
 	}
+	
+	public static void printResult(LinkedList<Integer> list, int testcase) {
+		StringBuilder sb = new StringBuilder();
 		
-	public static void main(String[] args) {
+		sb.append("#").append(testcase);
+
+		ListIterator<Integer> it = list.listIterator();
 		for(int i = 0; i < 10; i++) {
-			int N = sc.nextInt();
+			sb.append(" ").append(it.next());
+		}
+		
+		System.out.println(sb);
+	}
+		
+	public static void main(String[] args) throws IOException {
+		
+		br = new BufferedReader(new InputStreamReader(System.in));
+		// 토큰을 다 쓰면 NoSuchElementException이 터질 수 있다.
+		StringTokenizer st = null;
+		
+		for(int i = 0; i < 10; i++) {
+			st = new StringTokenizer(br.readLine());
+			int N = Integer.parseInt(st.nextToken());
+			
 			LinkedList<Integer> list = new LinkedList<>();
+			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < N; j++) {
-				list.add(sc.nextInt());
+				list.add(Integer.parseInt(st.nextToken()));
 			}
-			int M = sc.nextInt();
+			
+			st = new StringTokenizer(br.readLine());
+			int M = Integer.parseInt(st.nextToken());
+			st = new StringTokenizer(br.readLine());
+			
 			for(int x = 0; x < M; x++) {
-				operate(list);
+				processCommand(list, st);
 			}
-			System.out.print("#"+(i+1));
-			for(int y = 0; y < 10; y++) {
-				System.out.print(" "+list.get(y));
-			}
-			System.out.println();
+			
+			printResult(list, i+1);
 		}
 	}
 }
-
