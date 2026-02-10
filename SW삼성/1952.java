@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /*
@@ -14,6 +15,7 @@ public class Main {
 	private static int min; // 최소 비용
 	private static int T, D, M, M3, Y; // 하루, 한달, 3달, 1년 이용요금.
 	private static int[] plans;
+	private static int months; //계획이 하루라도 세워진 달 개수
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,9 +30,14 @@ public class Main {
 			Y = Integer.parseInt(st.nextToken());
 			st = new StringTokenizer(br.readLine());
 			plans = new int[12];
+			months = 0;
+			int p = 0;
 			for(int i = 0; i < 12; i++) {
 				int day = Integer.parseInt(st.nextToken());
-				plans[i] = day;
+				if(day != 0) {
+					months++;
+					plans[p++] = day; 
+				}
 			}
 			min = Y;
 			dfs(0, 0);
@@ -40,14 +47,14 @@ public class Main {
 	
 	public static void dfs(int price, int cM) {
 		if(price >= min) return;
-		if(cM == 12) {
+		if(cM == months) {
 			min = Math.min(min, price);
 			return;
 		}
 		
 		dfs(price+(D*plans[cM]), cM+1);//1일 이용권
 		dfs(price+M, cM+1);//1달 이용권
-		if(cM+2 < 12) dfs(price+M3, cM+3);//3달 이용권
-		else if(cM+1 == 11) dfs(price+M3, 12);
+		if(cM+2 < months) dfs(price+M3, cM+3);//3달 이용권
+		else if(cM+1 == months) dfs(price+M3, months);
 	}
 }
