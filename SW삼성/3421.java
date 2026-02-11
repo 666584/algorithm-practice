@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 public class SWEA_3421_수제버거장인_조유림 {
 	static int T, N, M; // N: 재료 개수, M: 맞지 않는 쌍 개수 
-	static int totalBurgers;
+	static int totalBurgers, selected;
 	static boolean[][] conflict;
 	
 
@@ -31,25 +31,27 @@ public class SWEA_3421_수제버거장인_조유림 {
 			}
 			
 			totalBurgers = 0;
-			getTotalBurgers(new boolean[N+1], 1);
+			selected = 0;
+			getTotalBurgers(selected, 1);
 			System.out.println("#"+t+" "+totalBurgers);
 			
 		}
 	}
 	
-	public static void getTotalBurgers(boolean[] isSelected, int cnt) {
+	public static void getTotalBurgers(int selected, int cnt) {
 		if(cnt == N+1) {
 			totalBurgers++;
 			return;
 		}
-		getTotalBurgers(isSelected, cnt+1);
+		getTotalBurgers(selected, cnt+1);
+		
 		for(int i = 1; i < cnt; i++) {
-			if(isSelected[i] && conflict[i][cnt]) {
+			if(((selected & (1<<i)) != 0) && conflict[i][cnt]) {
 				return;
 			}
 		}
-		isSelected[cnt] = true;
-		getTotalBurgers(isSelected, cnt+1);
-		isSelected[cnt] = false;
+		
+		getTotalBurgers(selected |= (1<<cnt), cnt+1);
 	}
 }
+
