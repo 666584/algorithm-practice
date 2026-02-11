@@ -6,59 +6,28 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class Main {
+public class SWEA_3421_수제버거장인_조유림 {
 	static int T, N, M; // N: 재료 개수, M: 맞지 않는 쌍 개수 
-	static Set<Pair> gradients;
 	static int totalBurgers;
+	static boolean[][] conflict;
 	
-	static class Pair {
-	    private final int first;
-	    private final int second;
-
-	    public Pair(int a, int b) {
-	        if (a < b) {
-	            this.first = a;
-	            this.second = b;
-	        } else {
-	            this.first = b;
-	            this.second = a;
-	        }
-	    }
-
-	    @Override
-	    public boolean equals(Object o) {
-	        if (this == o) return true;
-	        if (!(o instanceof Pair)) return false;
-	        Pair pair = (Pair) o;
-	        return pair.first == this.first &&
-	               pair.second == this.second;
-	    }
-
-	    @Override
-	    public int hashCode() {
-	        return Objects.hash(first, second);
-	    }
-
-	    @Override
-	    public String toString() {
-	        return "(" + first + ", " + second + ")";
-	    }
-	}
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		T = Integer.parseInt(st.nextToken());
+		
 		for(int t = 1; t <= T; t++) {
 			st = new StringTokenizer(br.readLine());
 			N = Integer.parseInt(st.nextToken());
 			M = Integer.parseInt(st.nextToken());
-			gradients = new HashSet<>();
+			conflict = new boolean[N+1][N+1];
 			for(int i = 0; i < M; i++) {
 				st = new StringTokenizer(br.readLine());
 				int a = Integer.parseInt(st.nextToken());
 				int b = Integer.parseInt(st.nextToken());
-				gradients.add(new Pair(a,b));
+				conflict[a][b] = true;
+		        conflict[b][a] = true;
 			}
 			
 			totalBurgers = 0;
@@ -70,17 +39,17 @@ public class Main {
 	
 	public static void getTotalBurgers(boolean[] isSelected, int cnt) {
 		if(cnt == N+1) {
-			for(Pair p: gradients) {
-				if(isSelected[p.first] && isSelected[p.second]) {
-					return;
-				}
-			}
 			totalBurgers++;
 			return;
 		}
-		isSelected[cnt] = false;
 		getTotalBurgers(isSelected, cnt+1);
+		for(int i = 1; i < cnt; i++) {
+			if(isSelected[i] && conflict[i][cnt]) {
+				return;
+			}
+		}
 		isSelected[cnt] = true;
 		getTotalBurgers(isSelected, cnt+1);
+		isSelected[cnt] = false;
 	}
 }
