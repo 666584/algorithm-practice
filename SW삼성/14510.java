@@ -38,21 +38,26 @@ public class SWEA_14510_나무높이_조유림 {
 		int cur = N-2;
 		int day = 0;
 		boolean[] isMaxHeight = new boolean[N-1];
+		
+		// maxHeight인 나무 먼저 판단하기.
+		for(int i = N-2; i >= 0; i--) {
+			if(trees[i] == maxHeight) {
+				isMaxHeight[i] = true;
+				cur--;
+			}else break;
+		}
+		
+		int start = cur;
+		
 		while(cur >= 0) {
 			int addWater = 0;
 			if(day%2 != 0) {
 				addWater = 2;
 			}else addWater = 1;
 			boolean isWatered = false;
-			for(int i = N-2; i >= 0; i--) {
+			for(int i = start; i >= 0; i--) {
 				if(!isMaxHeight[i]) {
-					if(trees[i] == maxHeight) {
-						isMaxHeight[i] = true;
-						isWatered = true;
-						cur--;
-						break;
-					}
-					else if(trees[i]+addWater == maxHeight) {
+					if(trees[i]+addWater == maxHeight) {
 						isMaxHeight[i] = true;
 						isWatered = true;
 						cur--;
