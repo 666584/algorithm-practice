@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -11,7 +10,6 @@ public class SWEA_1249_보급로 {
     static int[][] map;
     static int[] end;
     static int[][] costs;
-    static boolean[][] visited;
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0,0,-1,1};
     static class Node implements Comparable<Node>{
@@ -53,7 +51,6 @@ public class SWEA_1249_보급로 {
                     costs[i][j] = Integer.MAX_VALUE;
                 }
             }
-            visited = new boolean[N][N];
             int result = dijkstra();
             System.out.println("#"+t+ " "+result);
         }
@@ -67,8 +64,6 @@ public class SWEA_1249_보급로 {
             Node curr = queue.poll();
             int x = curr.x;
             int y = curr.y;
-            if(visited[x][y]) continue;
-            visited[x][y] = true;
             if(x == N-1 && y == N-1){
                 return costs[x][y];
             }
