@@ -1,0 +1,67 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+    static int N, M;
+    static ArrayList<Integer>[] graph;
+    static ArrayList<Integer>[] graphReverse;
+    static int knownTotal;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        graph = new ArrayList[N+1];
+        for(int i = 1; i < N+1; i++){
+            graph[i] = new ArrayList<>();
+        }
+        graphReverse = new ArrayList[N+1];
+        for(int i = 1; i < N+1; i++){
+            graphReverse[i] = new ArrayList<>();
+        }
+
+        knownTotal = 0;
+
+        for(int i = 0; i < M; i++){
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            graph[a].add(b);
+            graphReverse[b].add(a);
+        }
+
+        findAllDistances();
+        System.out.println(knownTotal);
+    }
+
+    public static void findAllDistances(){
+        for(int i = 1; i < N+1; i++){
+            int max = dfs(i, graph);
+            int maxReversed = dfs(i, graphReverse);
+            if(max+maxReversed == N-1){
+                knownTotal++;
+            }
+        }
+    }
+
+    public static int dfs(int start, ArrayList<Integer>[] nGraph){
+        Deque<Integer> queue = new ArrayDeque<>();
+        queue.add(start);
+        boolean[] isVisited = new boolean[N+1];
+        int max = 0;
+        while(!queue.isEmpty()){
+            int num = queue.poll();
+            for(int next: nGraph[num]){
+                if(!isVisited[next]){
+                    queue.addLast(next);
+                    isVisited[next] = true;
+                    max++;
+                }
+            }
+        }
+        return max;
+    }
+}
