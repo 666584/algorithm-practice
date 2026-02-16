@@ -24,11 +24,11 @@ public class BJ_15666_N과M12 {
         Arrays.sort(number);
         //System.out.println(Arrays.toString(number));
         arr = new int[M];
-        combination(0);
+        combination(0, 0);
     }
 
     // 중복 조합
-    public static void combination(int depth){
+    public static void combination(int depth, int start){
         if(depth == M) {
             for(int i = 0; i < M; i++){
                 System.out.print(arr[i]+" ");
@@ -36,13 +36,12 @@ public class BJ_15666_N과M12 {
             System.out.println();
             return;
         }
-        int prev = 0;
-        for(int i = 0; i < N; i++){
+        int prev = Integer.MIN_VALUE;
+        for(int i = start; i < N; i++){
             if(prev == number[i]) continue;
-            if(depth > 0 && (arr[depth-1] > number[i])) continue;
             prev = number[i];
             arr[depth] = number[i];
-            combination(depth+1);
+            combination(depth+1, i);
         }
     }
 }
