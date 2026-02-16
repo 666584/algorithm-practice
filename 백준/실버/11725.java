@@ -31,24 +31,22 @@ public class BJ_11725_트리의부모찾기 {
         parents = new int[N+1];
 
         bfs();
-        for(int i = 2; i < N+1; i++){
-            System.out.println(parents[i]);
-        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i <= N; i++) sb.append(parents[i]).append('\n');
+        System.out.print(sb);
     }
 
     public static void bfs(){
-        Queue<int[]> queue = new ArrayDeque<>();
-        queue.add(new int[]{1, 1});
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(1);
         boolean[] isVisited = new boolean[N+1];
         while(!queue.isEmpty()){
-            int[] curr = queue.poll();
-            int node = curr[0];
-            int parent = curr[1];
-            if(isVisited[node]) continue;
-            isVisited[node] = true;
-            parents[node] = parent;
+            int node = queue.poll();
             for(int next: graph[node]){
-                queue.offer(new int[]{next, node});
+                if(isVisited[next]) continue;
+                isVisited[next] = true;
+                parents[next] = node;
+                queue.offer(next);
             }
         }
     }
