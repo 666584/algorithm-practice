@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BJ_13549_숨바꼭질3_조유림{
@@ -19,13 +18,16 @@ public class BJ_13549_숨바꼭질3_조유림{
 	public static void bfs() {
 		ArrayDeque<int[]> deque = new ArrayDeque<>();
 		deque.add(new int[] {N, 0});
+
 		boolean[] visited = new boolean[100001];
+		visited[N] = true;
 		while(!deque.isEmpty()) {
 			int[] curr = deque.poll();
 			
 			int num = curr[0];
 			int cost = curr[1];
 			//System.out.println(num);
+			visited[num] = true;
 			if(num == K) {
 				System.out.println(cost);
 				return;
@@ -33,15 +35,12 @@ public class BJ_13549_숨바꼭질3_조유림{
 			
 			if (num*2 <= 100000 && !visited[num*2]) { 
 				deque.addFirst(new int[] {num*2, cost}); 
-				visited[num*2] = true;
 			}
 			if (num+1 <= 100000 && !visited[num+1]) { 
 				deque.addLast(new int[] {num+1, cost+1}); 
-				visited[num+1] = true;
 			}
 			if (num-1 >= 0 && !visited[num-1]) {
 				deque.addLast(new int[] {num-1, cost+1});
-				visited[num-1] = true;
 			}
 
 		}
