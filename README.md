@@ -14,8 +14,9 @@
 ---
 
 ## 🛠 Languages
-- Python (2025)
-- Java (2026)
+- Python
+- Java
+- SQL
 
 ---
 
