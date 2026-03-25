@@ -16,7 +16,6 @@
 ## 🛠 Languages
 - Python
 - Java
-- SQL
 
 ---
 
